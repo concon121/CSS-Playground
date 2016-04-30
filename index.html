@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link href="public/css/main.css" rel="stylesheet" type="text/css">
+    </head>
+    <body>
+
+      <div class="content">
+
+        <div class="nav nav-side">
+          <ul>
+            <li><a href="#form-elements">Form Elements</a>
+              <ul>
+                <li><a href="#text-input">Text Input</a>
+              </ul>
+            </li>
+            <li><a href="#">List</a></li>
+            <li><a href="#">Item</a></li>
+            <li><a href="#">In</a></li>
+            <li><a href="#">Side</a></li>
+            <li><a href="#">Nav Bar</a></li>
+          <ul>
+        </div>
+
+        <div class="page-title">
+          <h1>CSS Playground</h1>
+        </div>
+
+        <div id="form-elements" class="section">
+
+          <div class="section-title">
+            <h2>Form Elements</h2>
+          </div>
+
+          <div class="section-content">
+
+            <div id="text-input">
+              <h3>Text Input</h3>
+              <p>For desktop views, the text input will occupy 50% of the availble width of its container.  However, for tablet devices and smaller the input will occupy 100% of the available width.</p>
+
+              <form>
+                <div class="form-item">
+                  <label for="my-input">
+                    <div class="input-label">Forename: </div>
+                    <input id="my-input" type="text" placeholder="Please enter your first name..."/>
+                  </label>
+                </div>
+                <div class="form-item">
+                  <label for="my-input">
+                    <div class="input-label">Surname: </div>
+                    <input id="my-input" type="text" placeholder="Please enter your last name..."/>
+                  </label>
+                </div>
+
+              </form>
+
+              <h4>Handlebars Template:</h4>
+              <code>
+                <pre>
+    &lt;div class="form-item"&gt;
+        &lt;label for="{{id}}"&gt;
+            &lt;div class="input-label"&gt;{{label}}&lt;/div&gt;
+            &lt;input id="{{id}}" type="text" placeholder="{{placeholder}}"/&gt;
+        &lt;/label&gt;
+    &lt;/div&gt;</pre>
+              </code>
+
+              <h4>Usage:</h4>
+              <code>
+                <pre>
+    {{> templates/partials/input
+        id="forename"
+        label="Forename: "
+        placeholder="Please enter your first name..."}}
+                </pre>
+              </code>
+
+              <h4>Example:</h4>
+              <code>
+                <pre>
+    &lt;form&gt;
+        {{> templates/partials/input
+            id="forename"
+            label="Forename: "
+            placeholder="Please enter your first name..."}}
+        {{> templates/partials/input
+            id="surname"
+            label="Surname: "
+            placeholder="Please enter your last name..."}}
+    &lt;form&gt;</pre>
+              </code>
+            </div>
+          </div>
+        </div>
+
+        <div class="footer">
+          <p>this is my footer</p>
+        </div>
+
+
+      </div>
+
+    </body>
+</html>
