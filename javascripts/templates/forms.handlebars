@@ -1,0 +1,50 @@
+{{> page-elements/page-title
+    title="CSS Playground"}}
+
+<div id="form-elements" class="section">
+
+  {{> page-elements/section-title
+      title="Form Elements"}}
+
+  <div class="section-content">
+
+    <div id="text-input">
+      <h3>Text Input</h3>
+
+      <p>For desktop views, the text input will occupy 50% of the availble width of its container.  However, for tablet devices and smaller the input will occupy 100% of the available width.</p>
+
+      <form>
+        {{> form/input
+            id="forename"
+            label="Forename: "
+            placeholder="Please enter your first name..."}}
+        {{> form/input
+            id="surname"
+            label="Surname: "
+            placeholder="Please enter your last name..."}}
+      </form>
+
+      <h4>Handlebars Template:</h4>
+      <code>
+        <pre>
+  &lt;div class="form-item"&gt;
+    &lt;label for="&lbrace;&lbrace;id&rbrace;&rbrace;"&gt;
+    &lt;div class="input-label"&gt;&lbrace;&lbrace;label&rbrace;&rbrace;&lt;/div&gt;
+      &lt;input id="&lbrace;&lbrace;id&rbrace;&rbrace;" type="text" placeholder="&lbrace;&lbrace;placeholder&rbrace;&rbrace;"/&gt;
+    &lt;/label&gt;
+  &lt;/div&gt;</pre>
+      </code>
+
+      <h4>Usage:</h4>
+      <code>
+        <pre>
+  &lbrace;&lbrace;> form/input
+      id="forename"
+      label="Forename: "
+      placeholder="Please enter your first name..."&rbrace;&rbrace;
+        </pre>
+      </code>
+
+    </div>
+  </div>
+</div>

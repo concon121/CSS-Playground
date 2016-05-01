@@ -98,7 +98,7 @@ module.exports = function (grunt) {
           },
           app: {
             src: [
-              //'javascripts/models/*.js',
+              'javascripts/models/*.js',
               'javascripts/templates/app-templates.js',
               'javascripts/views/*.js',
               'javascripts/router.js',

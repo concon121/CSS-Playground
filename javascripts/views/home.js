@@ -1,7 +1,8 @@
 var HomeView = Backbone.View.extend({
   template: Handlebars.templates.home,
   render: function() {
-    this.el.innerHTML = this.template();
+    var model = new NavModel();
+    this.el.innerHTML = this.template(model.toJSON());
     return this;
   }
 });
