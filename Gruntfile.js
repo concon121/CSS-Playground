@@ -10,6 +10,22 @@ module.exports = function (grunt) {
         pkg: grunt.file.readJSON('package.json'),
         jqueryCheck: 'if (typeof jQuery === "undefined") { throw new Error("Build here requires jQuery") }\n\n',
 
+        jshint: {
+          options: {
+            jshintrc: 'javascripts/.jshintrc'
+          }, gruntfile: {
+            src: 'Gruntfile.js'
+          }, src: {
+            src: [
+              '!javascripts/templates/template.js',
+              'javascripts/models/*.js',
+              'javascripts/views/*.js',
+              'javascripts/*.js'
+            ]
+          }
+        },
+
+
         // cleanup in the public dir
         clean: {
             dist: {
@@ -39,6 +55,12 @@ module.exports = function (grunt) {
         watch: {
             sass: {
                 files: ['../css/**/**/*.scss', '../css/**/**/*.sass', 'stylesheets/*.scss'], tasks: ['clean:css', 'dist-css']
+            },
+            js: {
+              files: ['javascripts/**/*.js'], tasks: ['dist-js']
+            },
+            handlebars: {
+              files: ['javascripts/templates/**', '../css/templates/**'], tasks: ['exec', 'dist-js']
             }
         },
 
@@ -61,6 +83,55 @@ module.exports = function (grunt) {
             }
         },
 
+        exec: {
+          thirdparty: {
+            cmd: 'handlebars ../css/templates/ > javascripts/thirdparty/css-playground-templates.js'
+          },
+          app: {
+            cmd: 'handlebars javascripts/templates/ > javascripts/templates/app-templates.js'
+          }
+        },
+
+        concat: {
+          options: {
+            stripBanners: false
+          },
+          app: {
+            src: [
+              //'javascripts/models/*.js',
+              'javascripts/templates/app-templates.js',
+              'javascripts/views/*.js',
+              'javascripts/router.js',
+              'javascripts/main.js'
+            ],
+            dest: 'public/playground.app.js'
+          },
+          thirdparty: {
+            src: [
+              'javascripts/thirdparty/underscore-min.js',
+              'javascripts/thirdparty/jquery.min.js',
+              'javascripts/thirdparty/jquery-ui.min.js',
+              'javascripts/thirdparty/jquery.validate.min.js',
+              'javascripts/thirdparty/handlebars.min.js',
+              'javascripts/thirdparty/handlebars.runtime.min.js',
+              'javascripts/thirdparty/backbone-min.js',
+              'javascripts/thirdparty/css-playground-templates.js'
+            ],
+            dest: 'public/playground.thirdparty.js'
+          }
+
+        }, uglify: {
+          //see https://github.com/gruntjs/grunt-contrib-uglify#uglify-task for available options
+          options: {
+            report: 'min', mangle: true, beautify: {
+              beautify: false, indent_level: 2, space_colon: false
+              , ascii_only: true, quote_keys: true
+            }, preserveComments: false
+          }, 'public/playground.min.js': ['<%= concat.thirdparty.dest %>', '<%= concat.app.dest %>']
+        },
+
+
+
     };//end gruntconfig
 
 
@@ -75,10 +146,13 @@ module.exports = function (grunt) {
     // CSS distribution task.
     grunt.registerTask('dist-css', ['compass']);
 
+    // JS distribution task.
+    grunt.registerTask('dist-js', ['concat', 'uglify']);
+
     // Full distribution task.
-    grunt.registerTask('dist', ['clean', 'dist-css']);
+    grunt.registerTask('dist', ['clean', 'dist-css', 'dist-js']);
 
     // Default task.
-    grunt.registerTask('default', ['dist', 'json_generator', "express", "watch"]);
+    grunt.registerTask('default', ['exec', 'jshint', 'dist', 'json_generator', "express", "watch"]);
 
 };
