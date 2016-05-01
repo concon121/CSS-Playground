@@ -4,5 +4,5 @@ var cssPlaygroundRouter = new CssPlaygroundRouter();
 
 Backbone.history.start({
     pushState: true,
-    root: '/'
+    root: '/CSS-Playground/'
 });
